@@ -1,26 +1,41 @@
+"use server";
 import { $api } from "@/http";
 import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 
 export const setToken = (token: string) => {
-  Cookies.set("token", token, {
+  // Cookies.set("token", token, {
+  //   path: "/",
+  //   secure: true,
+  // });
+  cookies().set({
+    name: "token",
+    value: token,
+    httpOnly: true,
     path: "/",
-    secure: true,
   });
 };
 
 export const setProjectId = (projectId: string) => {
-  Cookies.set("projectId", projectId, {
+  // Cookies.set("projectId", projectId, {
+  //   path: "/",
+  //   secure: true,
+  // });
+  cookies().set({
+    name: "projectId",
+    value: projectId,
+    httpOnly: true,
     path: "/",
-    secure: true,
   });
 };
 
 export const getToken = () => {
-  return Cookies.get("token");
+  return cookies().get("token")?.value;
 };
 
 export const getProjectId = () => {
-  return Cookies.get("projectId");
+  // return Cookies.get("projectId");
+  return cookies().get("projectId")?.value;
 };
 
 export const fetchCheckAuth = async (token: string, projectId: string) => {
