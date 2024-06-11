@@ -2,11 +2,15 @@ import { $api } from "@/http";
 import Cookies from "js-cookie";
 
 export const setToken = (token: string) => {
-  Cookies.set("token", token, { path: "/" });
+  Cookies.set("token", token, { path: "/", secure: true, sameSite: "None" });
 };
 
 export const setProjectId = (projectId: string) => {
-  Cookies.set("projectId", projectId, { path: "/" });
+  Cookies.set("projectId", projectId, {
+    path: "/",
+    secure: true,
+    sameSite: "None",
+  });
 };
 
 export const getToken = () => {
