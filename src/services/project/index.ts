@@ -1,5 +1,5 @@
 import { $api } from "@/http";
-import { setProjectId, setToken } from "../auth";
+import { setToken, setProjectId } from "../cookies";
 
 export const fetchCreateProject = async () => {
   try {
