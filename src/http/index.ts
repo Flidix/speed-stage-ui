@@ -1,4 +1,6 @@
+import { getToken } from "@/services/auth";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const API_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -7,9 +9,9 @@ export const $api = axios.create({
   baseURL: API_URL,
 });
 
-// const { get } = cookies();
+const token = Cookies.get("token");
 
-// $api.interceptors.request.use((config: any) => {
-//   config.headers.Authorization = `Bearer ${get("token")?.value}`;
-//   return config;
-// });
+$api.interceptors.request.use((config: any) => {
+  config.headers.Cookie = `${token}`;
+  return config;
+});

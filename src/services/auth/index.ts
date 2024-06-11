@@ -4,16 +4,14 @@ import Cookies from "js-cookie";
 export const setToken = (token: string) => {
   Cookies.set("token", token, {
     path: "/",
-    secure: false,
-    sameSite: "none",
+    secure: true,
   });
 };
 
 export const setProjectId = (projectId: string) => {
   Cookies.set("projectId", projectId, {
     path: "/",
-    secure: false,
-    sameSite: "none",
+    secure: true,
   });
 };
 
