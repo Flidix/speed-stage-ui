@@ -1,20 +1,23 @@
+"use client";
 import { $api } from "@/http";
 import Cookies from "js-cookie";
 
 export const setToken = (token: string) => {
-  Cookies.set("token", token, { path: "/" });
+  Cookies.set("token", token);
 };
 
 export const setProjectId = (projectId: string) => {
-  Cookies.set("projectId", projectId, { path: "/" });
+  Cookies.set("projectId", projectId);
 };
 
 export const getToken = () => {
-  return Cookies.get("token");
+  const token = Cookies.get("token");
+  return token;
 };
 
 export const getProjectId = () => {
-  return Cookies.get("projectId");
+  const projectId = Cookies.get("projectId");
+  return projectId;
 };
 
 export const fetchCheckAuth = async (token: string, projectId: string) => {
@@ -32,6 +35,7 @@ export const fetchCheckAuth = async (token: string, projectId: string) => {
 
     return data;
   } catch (e: any) {
+    console.error("Error in fetchCheckAuth:", e);
     throw new Error(`${e?.response?.data?.message}`);
   }
 };
@@ -51,6 +55,7 @@ export const fetchLogin = async (projectId: string, token: string) => {
 
     return data;
   } catch (e: any) {
+    console.error("Error in fetchLogin:", e);
     throw new Error(`${e?.response?.data?.message}`);
   }
 };
