@@ -20,7 +20,6 @@ export async function middleware(request: NextRequest) {
     pathname.includes(route)
   );
 
-  console.log(pathname, isForEveryone);
   if (isForEveryone) {
     return NextResponse.next();
   }
@@ -42,6 +41,7 @@ export async function middleware(request: NextRequest) {
   if (!token || !projectId) {
     return NextResponse.redirect(new URL("/auth", request.url));
   }
+
   const authData = await fetchCheckAuth(token, projectId);
 
   if (!authData) {
@@ -56,7 +56,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  // Set cookies for token and projectId
+  const response = NextResponse.next();
+  response.cookies.set("token", authData.token, { httpOnly: false });
+  response.cookies.set("projectId", authData.projectId, { httpOnly: false });
+
+  return response;
 }
 
 export const config = {
