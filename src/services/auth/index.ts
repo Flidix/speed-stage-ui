@@ -10,6 +10,7 @@ export const getProjectId = () => {
   return projectId;
 };
 
+
 export const fetchCheckAuth = async (token: string, projectId: string) => {
   try {
     const { data } = await $api.post<{ token: string; projectId: string }>(

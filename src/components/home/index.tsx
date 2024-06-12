@@ -1,15 +1,23 @@
 import { $api } from "@/http";
-import { getProjectId } from "@/services/auth";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import FullScreenSpinner from "../ui/spinners/full-screen-spinner";
 import ProjectList from "../project-list";
+import { cookies } from "next/headers";
+import { getProjectId, setProjectId } from "@/services/cookies";
 
 const Home = () => {
-  const projectId = getProjectId();
+  const [projectId, setProjectId] = React.useState<string | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    setProjectId(getProjectId());
+  }, []);
 
   const { data, isPending } = useQuery({
     queryKey: ["project"],
+    enabled: !!projectId,
     queryFn: async () => {
       const res = await $api.get<TProject>("/project/" + projectId);
       return res.data;
