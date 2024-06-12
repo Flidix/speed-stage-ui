@@ -1,5 +1,4 @@
 import { $api } from "@/http";
-import { getProjectId } from "@/services/auth";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import FullScreenSpinner from "../ui/spinners/full-screen-spinner";
@@ -19,6 +18,7 @@ const Home = () => {
   const { data, isPending } = useQuery({
     queryKey: ["project"],
     enabled: projectId !== null,
+
     queryFn: async () => {
       const res = await $api.get<TProject>("/project/" + projectId);
       return res.data;
