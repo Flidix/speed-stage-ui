@@ -1,5 +1,4 @@
 import { $api } from "@/http";
-import { setProjectId, setToken } from "../auth";
 
 export const fetchCreateProject = async () => {
   try {
@@ -7,8 +6,8 @@ export const fetchCreateProject = async () => {
       "/project"
     );
 
-    setToken(data.token);
-    setProjectId(data.projectId);
+		localStorage.setItem("projectId", data.projectId)
+
 
     return data;
   } catch (e: any) {

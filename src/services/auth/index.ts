@@ -1,26 +1,13 @@
 import { $api } from "@/http";
 import Cookies from "js-cookie";
 
-export const setToken = (token: string) => {
-  Cookies.set("token", token, {
-    path: "/",
-    secure: true,
-  });
-};
-
-export const setProjectId = (projectId: string) => {
-  Cookies.set("projectId", projectId, {
-    path: "/",
-    secure: true,
-  });
-};
-
 export const getToken = () => {
   return Cookies.get("token");
 };
 
 export const getProjectId = () => {
-  return Cookies.get("projectId");
+  const projectId = localStorage.getItem("projectId");
+  return projectId;
 };
 
 export const fetchCheckAuth = async (token: string, projectId: string) => {
@@ -32,9 +19,6 @@ export const fetchCheckAuth = async (token: string, projectId: string) => {
         projectId,
       }
     );
-
-    setToken(data.token);
-    setProjectId(data.projectId);
 
     return data;
   } catch (e: any) {
@@ -51,9 +35,6 @@ export const fetchLogin = async (projectId: string, token: string) => {
         projectId,
       }
     );
-
-    setToken(data.token);
-    setProjectId(data.projectId);
 
     return data;
   } catch (e: any) {
